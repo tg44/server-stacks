@@ -1,0 +1,36 @@
+global:
+  scrape_interval:     15s # By default, scrape targets every 15 seconds.
+  evaluation_interval: 15s # By default, scrape targets every 15 seconds.
+  # scrape_timeout is set to the global default (10s).
+
+  # Attach these labels to any time series or alerts when communicating with
+  # external systems (federation, remote storage, Alertmanager).
+  external_labels:
+    monitor: 'my-project'
+
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['prometheus.tg44.win']
+  - job_name: 'octoprint'
+    scrape_interval: 5s
+    metrics_path: '/plugin/prometheus_exporter/metrics'
+    static_configs:
+      - targets: ['print.tg44.win:80']
+  - job_name: 'cadvisor'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [orca.tg44.win:9200, sigil.tg44.win:9200]
+  - job_name: 'nodeexporter'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [orca.tg44.win:9100, sigil.tg44.win:9100]
+  - job_name: 'minidlna'
+    static_configs:
+      - targets: [sigil.tg44.win:9312]
+  - job_name: 'deluge'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [sigil.tg44.win:9354]

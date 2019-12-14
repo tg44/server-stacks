@@ -1,0 +1,11 @@
+data/*
+generated/*
+logs/*
+plugins/*
+supervisord.log
+supervisord.pid
+timelapse/*
+translations/*
+uploads/*
+virtualSd/*
+watched/*

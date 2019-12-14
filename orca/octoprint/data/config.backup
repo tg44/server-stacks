@@ -1,0 +1,121 @@
+accessControl:
+  enabled: false
+api:
+  key: 904972289D6F426499AD0B0817E0EB53
+plugins:
+  DisplayLayerProgress:
+    showAllPrinterMessages: false
+    showOnNavBar: false
+  PrintTimeGenius:
+    exactDurations: false
+  _disabled:
+  - octoprint_eta
+  announcements:
+    _config_version: 1
+    channels:
+      _blog:
+        read_until: 1574955000
+      _important:
+        read_until: 1521111600
+      _octopi:
+        read_until: 1573722900
+      _plugins:
+        read_until: 1575849600
+      _releases:
+        read_until: 1575299700
+  costestimation:
+    _config_version: 3
+    costOfElectricity: '44'
+    currency: HUF
+    lifespanOfPrinter: '1000'
+    maintenanceCosts: '50'
+    priceOfPrinter: '75000'
+  dashboard:
+    showLayerGraph: true
+    showLayerProgress: true
+    showSystemInfo: true
+  discovery:
+    upnpUuid: 622e5a14-8113-4bb9-9262-57908ba487c7
+  errortracking:
+    unique_id: 3c371839-7d17-4df2-a9f2-c78c800022a2
+  excluderegion:
+    _config_version: 1
+  filamentmanager:
+    _config_version: 1
+    currencySymbol: HUF
+    database:
+      clientID: 9ff1a7c4-1b46-11ea-bcec-0242ac120002
+  softwareupdate:
+    _config_version: 6
+    check_providers:
+      DisplayLayerProgress: DisplayLayerProgress
+      PrintTimeGenius: PrintTimeGenius
+      cancelobject: cancelobject
+      costestimation: costestimation
+      dashboard: dashboard
+      display-eta: octoprint_eta
+      excluderegion: excluderegion
+      filamentmanager: filamentmanager
+      filemanager: filemanager
+      prometheus_exporter: prometheus_exporter
+      stats: stats
+      tasmota: tasmota
+  tasmota:
+    _config_version: 5
+    arrSmartplugs:
+    - autoConnect: true
+      autoConnectDelay: 10
+      autoDisconnect: true
+      autoDisconnectDelay: 0
+      backlog_off_delay: 0
+      backlog_on_delay: 0
+      currentState: 'on'
+      displayWarning: true
+      gcodeEnabled: false
+      gcodeOffDelay: 0
+      gcodeOnDelay: 0
+      icon: icon-bolt
+      idx: '1'
+      ip: 10.32.45.204
+      label: powerplug
+      off_color: '#FF0000'
+      on_color: '#00FF00'
+      password: ''
+      sysCmdOff: false
+      sysCmdOffDelay: 0
+      sysCmdOn: false
+      sysCmdOnDelay: 0
+      sysRunCmdOff: ''
+      sysRunCmdOn: ''
+      thermal_runaway: false
+      unknown_color: '#808080'
+      use_backlog: false
+      username: admin
+      warnPrinting: true
+    polling_enabled: true
+    polling_interval: '1'
+  tracking:
+    enabled: false
+    unique_id: e86c9e7c-93d6-444e-b906-945f2649ddce
+printerProfiles:
+  default: _default
+server:
+  firstRun: false
+  onlineCheck:
+    enabled: true
+  pluginBlacklist:
+    enabled: true
+  secretKey: 3lKh6maXNGgAaLqZFfo5VVt4X905lrwp
+  seenWizards:
+    corewizard: 3
+    tracking: null
+temperature:
+  profiles:
+  - bed: 100
+    chamber: null
+    extruder: 210
+    name: ABS
+  - bed: 60
+    chamber: null
+    extruder: 180
+    name: PLA
