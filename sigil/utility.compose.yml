@@ -1,0 +1,70 @@
+version: "3"
+services:
+  nginx-proxy-manager:
+    image: jc21/nginx-proxy-manager:latest
+    restart: unless-stopped
+    ports:
+      # Public HTTP Port:
+      - 80:80
+      # Public HTTPS Port:
+      - 443:443
+      # Admin Web Port:
+      - 81:81
+    volumes:
+      # Make sure this config.json file exists as per instructions above:
+      - /hdd/docker/nginx-proxy-manager/config.json:/app/config/production.json
+      - /hdd/docker/nginx-proxy-manager/data:/data
+      - /hdd/docker/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
+    depends_on:
+      - npm-db
+  npm-db:
+    image: jc21/mariadb-aria
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: "npm"
+      MYSQL_DATABASE: "npm"
+      MYSQL_USER: "npm"
+      MYSQL_PASSWORD: "npm"
+    volumes:
+      - /hdd/docker/nginx-proxy-manager/data/mysql:/var/lib/mysql
+  node_exporter:
+    image: prom/node-exporter
+    restart: unless-stopped
+    volumes:
+      - /proc:/host/proc
+      - /sys:/host/sys
+      - /:/rootfs
+      - /etc/hostname:/etc/nodename
+    command:
+      - '--path.sysfs=/host/sys'
+      - '--path.procfs=/host/proc'
+      - '--collector.textfile.directory=/etc/node-exporter/'
+      - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)'
+      - '--no-collector.ipvs'
+    ports:
+      - 9100:9100
+  cadvisor:
+    image: gcr.io/google-containers/cadvisor:v0.34.0
+    container_name: cadvisor
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+    restart: unless-stopped
+    ports:
+      - 9200:8080
+  minidlna-exporter:
+    image: dr1s/minidlna_exporter
+    command:
+      - '-m sigil.tg44.win:8200'
+    ports:
+      - 9312:9312
+  deluge-exporter:
+    image: tobbez/deluge_exporter
+    ports:
+      - 9354:9354
+    environment:
+      - 'DELUGE_HOST=10.32.45.200'
+    volumes:
+      - /hdd/docker/deluge/config:/root/.config/deluge
