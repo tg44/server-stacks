@@ -34,3 +34,7 @@ scrape_configs:
     scrape_interval: 5s
     static_configs:
       - targets: [sigil.tg44.win:9354]
+  - job_name: 'mqtt'
+    scrape_interval: 5s
+    static_configs:
+      - targets: [sigil.tg44.win:9324, sigil.tg44.win:9234]
