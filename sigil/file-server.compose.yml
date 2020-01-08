@@ -1,0 +1,32 @@
+version: '3.1'
+services:
+  minidlna:
+    container_name: miniDLNA
+    restart: unless-stopped
+    network_mode: host
+    image: vladgh/minidlna
+    volumes:
+      - /hdd/torrent:/media
+    environment:
+      - MINIDLNA_MEDIA_DIR=/media
+      - MINIDLNA_FRIENDLY_NAME=csigusz
+  deluge:
+    image: linuxserver/deluge
+    container_name: deluge
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - /hdd/docker/deluge/config:/config
+      - /hdd/torrent:/downloads
+    restart: unless-stopped
+  smb:
+    image: twistify/anonymous-samba
+    container_name: samba-share
+    ports:
+      - 445:445
+    volumes:
+      - /hdd/torrent:/data/shared
+    restart: unless-stopped
+

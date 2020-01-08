@@ -1,0 +1,28 @@
+version: '3.1'
+services:
+  mqtt:
+    container_name: MQTT
+    restart: unless-stopped
+    image: eclipse-mosquitto
+    privileged: true
+    volumes:
+      - /hdd/docker/mosquitto/config:/mosquitto/config
+      - /hdd/docker/mosquitto/data:/mosquitto/data
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+  homeassistant:
+      container_name: home-assistant
+      image: homeassistant/home-assistant
+      volumes:
+        - /hdd/docker/hassio/config:/config
+      restart: unless-stopped
+      ports:
+        - "8123:8123"
+  tasmoadmin:
+    container_name: tasmoadmin
+    image: raymondmm/tasmoadmin
+    volumes:
+      - /hdd/docker/hassio/tasmoadmin/data:/data
+    ports:
+      - "9002:80"
