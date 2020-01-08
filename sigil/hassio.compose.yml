@@ -11,6 +11,13 @@ services:
     ports:
       - "1883:1883"
       - "9001:9001"
+  mqtt-exporter:
+    restart: unless-stopped
+    image: sapcc/mosquitto-exporter:0.6.0
+    environment:
+      - BROKER_ENDPOINT=tcp://sigil.tg44.win:1883
+    ports:
+      - 9234:9234
   homeassistant:
       container_name: home-assistant
       image: homeassistant/home-assistant
@@ -26,3 +33,12 @@ services:
       - /hdd/docker/hassio/tasmoadmin/data:/data
     ports:
       - "9002:80"
+  mqtt-prom-exp:
+    restart: unless-stopped
+    image: tg44/mqtt-prometheus-message-exporter
+    volumes:
+      - /hdd/docker/mosquitto/config/exporter.conf:/app/exporter.conf
+    ports:
+      - "9324:9000"
+    environment:
+      - 'CONF_PATH=/app/exporter.conf'
