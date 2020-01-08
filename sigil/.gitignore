@@ -1,4 +1,4 @@
 deluge/*
 hassio/*
-mosquitto/*
+mosquitto/data/*
 nginx-proxy-manager/*
